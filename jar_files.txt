@@ -1,0 +1,12 @@
+
+gs://str_stream_jar_files/commons-pool2-2.6.2.jar
+gs://str_stream_jar_files/kafka-clients-2.6.0.jar
+gs://str_stream_jar_files/lz4-java-1.7.1.jar
+gs://str_stream_jar_files/scala-library-2.12.10.jar
+gs://str_stream_jar_files/slf4j-api-1.7.30.jar
+gs://str_stream_jar_files/snappy-java-1.1.7.3.jar
+gs://str_stream_jar_files/spark-sql-kafka-0-10_2.12-3.1.1.jar
+gs://str_stream_jar_files/spark-tags_2.12-3.1.1.jar
+gs://str_stream_jar_files/spark-token-provider-kafka-0-10_2.12-3.1.1.jar
+gs://str_stream_jar_files/unused-1.0.0.jar
+gs://str_stream_jar_files/zstd-jni-1.4.4-7.jar
