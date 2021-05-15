@@ -10,7 +10,7 @@ from tabulate import tabulate
 
 spark = SparkSession.builder.appName("NYC_County_prediction").getOrCreate()
 spark.sparkContext.setLogLevel("WARN")
-BROKER_IP = "10.138.0.4:9092"
+BROKER_IP = "10.182.0.2:9092"
 df = spark.readStream.format("kafka").option("kafka.bootstrap.servers", BROKER_IP).option("subscribe","quickstart-events").load()
 
 split_cols = f.split(df.value,',')
@@ -26,14 +26,11 @@ df = df.withColumn('true_label',df['Violation_County'])
 
 predictions = model.transform(df)
 
-'''mapping = dict(zip([0.0,1.0,2.0],['setosa','versicolor','virginica']))
-mapping_expr = f.create_map([f.lit(x) for x in chain(*mapping.items())])'''
-
 output_df = predictions[['Summons Number','Violation_County_Prediction','true_label']]
 
 def foreach_batch_function(df, epoch_id):
-    dftemp = df.toPandas()
-    if dftemp.shape[0] > 0:
+    if df.count() > 0:
+        dftemp = df.toPandas()
         acc = accuracy_score(dftemp['true_label'], dftemp['Violation_County_Prediction'])
         f1 = f1_score(dftemp['true_label'], dftemp['Violation_County_Prediction'], average='weighted')
         output = pd.DataFrame([['Accuracy', acc],['F1-Score', f1]], columns = ['Metric', 'Value'])
